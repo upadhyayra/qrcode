@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body style="background: darkslategrey;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mt-5">
+                <a href="../AI_Image/index.html" class="btn btn-primary me-5">AI Generate</a>
+                <a href="../weather/weather.html" class="btn btn-primary">Weather</a>
+            </div>
+            <div class="col-md-6 qr-box rounded bg-light"
+                style="border: 2px solid grey; position: relative; top: 200px;">
+                <form>
+                    <label for="" class="label-control fw-bold  mt-3 ">Enter your Text OR URL</label>
+                    <input type="search" id="input-text" aria-label="Search" placeholder="Text or URL"
+                        class="form-control mt-3">
+                    <div style="text-align: center; margin: 20px 0;" class="img-sec">
+                        <h1></h1>
+                    </div>
+                    <button type="submit" class="form-control btn btn-primary mb-4" onclick="generateQr()">Generate QR
+                        Code</button>
+                </form>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('form')
+        form.addEventListener('submit', generateQr)
+        function generateQr(e) {
+            e.preventDefault();
+            const qrImg = document.getElementById('qrImg')
+            const input = document.getElementById('input-text').value.trim();
+            if (input == "") {
+                alert("please enter something")
+                return;
+            }
+
+            const imgSection = document.getElementsByClassName('img-sec')[0]
+            imgSection.innerHTML = `
+ <img src="css/loading.gif" alt="" id="qrImg">
+                `
+            setTimeout(() => {
+                const data = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=+${inputText}`
+                imgSection.innerHTML = `
+ <img src=${data} alt="" id="qrImg">
+                `
+            }, 1000)
+        }
+    </script>
+</body>
+
+</html>
